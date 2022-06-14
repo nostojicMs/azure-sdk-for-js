@@ -1390,6 +1390,7 @@ export class DataLakeFileClient extends DataLakePathClient {
           onUploadProgress: options.onProgress,
         },
         cpkInfo: options.customerProvidedKey,
+        flush: options.flush,
         ...convertTracingToRequestOptionsBase(updatedOptions),
       });
     } catch (e: any) {
