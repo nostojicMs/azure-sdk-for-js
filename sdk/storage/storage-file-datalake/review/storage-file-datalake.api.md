@@ -781,6 +781,7 @@ export interface FileSystemCreateOptions extends CommonOptions {
     abortSignal?: AbortSignalLike;
     // (undocumented)
     access?: PublicAccessType;
+    fileSystemEncryptionScope?: FileSystemEncryptionScope;
     // (undocumented)
     metadata?: Metadata;
 }
@@ -823,6 +824,11 @@ export type FileSystemDeleteResponse = FileSystemDeleteHeaders & {
         parsedHeaders: FileSystemDeleteHeaders;
     };
 };
+
+// @public
+export interface FileSystemEncryptionScope {
+    defaultEncryptionScope?: string;
+}
 
 // @public
 export interface FileSystemExistsOptions extends CommonOptions {
@@ -877,6 +883,7 @@ export interface FileSystemGetPropertiesHeaders {
     clientRequestId?: string;
     // (undocumented)
     date?: Date;
+    defaultEncryptionScope?: string;
     // (undocumented)
     etag?: string;
     // (undocumented)
@@ -972,6 +979,8 @@ export type FileSystemListPathsResponse = PathList & FileSystemListPathsHeaders 
 
 // @public (undocumented)
 export interface FileSystemProperties {
+    // (undocumented)
+    defaultEncryptionScope?: string;
     // (undocumented)
     deletedOn?: Date;
     // (undocumented)
@@ -1222,6 +1231,7 @@ export interface Path {
     // (undocumented)
     contentLength?: number;
     createdOn?: Date;
+    encryptionScope?: string;
     // (undocumented)
     etag?: string;
     expiresOn?: Date;
@@ -1512,6 +1522,7 @@ export interface PathGetPropertiesHeaders {
     destinationSnapshot?: string;
     // (undocumented)
     encryptionKeySha256?: string;
+    encryptionScope?: string;
     // (undocumented)
     etag?: string;
     expiresOn?: Date;

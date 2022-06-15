@@ -223,6 +223,7 @@ export interface FileSystemProperties {
   publicAccess?: PublicAccessType;
   hasImmutabilityPolicy?: boolean;
   hasLegalHold?: boolean;
+  defaultEncryptionScope?: string;
   deletedOn?: Date;
   remainingRetentionDays?: number;
 }
@@ -310,6 +311,10 @@ export interface FileSystemCreateOptions extends CommonOptions {
   abortSignal?: AbortSignalLike;
   metadata?: Metadata;
   access?: PublicAccessType;
+  /**
+   * File System encryption scope info.
+   */
+  fileSystemEncryptionScope?: FileSystemEncryptionScope;
 }
 
 export interface FileSystemCreateHeaders {
@@ -364,6 +369,10 @@ export interface FileSystemGetPropertiesHeaders {
   publicAccess?: PublicAccessType;
   hasImmutabilityPolicy?: boolean;
   hasLegalHold?: boolean;
+  /**
+   * The default encryption scope for the file system.
+   */
+  defaultEncryptionScope?: string;
 }
 
 export type FileSystemGetPropertiesResponse = FileSystemGetPropertiesHeaders & {
@@ -474,6 +483,10 @@ export interface Path {
   owner?: string;
   group?: string;
   permissions?: PathPermissions;
+  /**
+   * The name of the encryption scope under which the blob is encrypted.
+   */
+  encryptionScope?: string;
   /**
    * Creation time of the path.
    */
@@ -886,6 +899,11 @@ export interface PathGetPropertiesHeaders {
   // blobCommittedBlockCount?: number;
   isServerEncrypted?: boolean;
   encryptionKeySha256?: string;
+  /**
+   * Returns the name of the encryption scope used to encrypt the path contents and application metadata.
+   * Note that the absence of this header implies use of the default account encryption scope.
+   */
+  encryptionScope?: string;
   accessTier?: string;
   accessTierInferred?: boolean;
   archiveStatus?: string;
@@ -1450,6 +1468,14 @@ export interface FileGenerateSasUrlOptions extends CommonGenerateSasUrlOptions {
    * Optional only when identifier is provided. Specifies the list of permissions to be associated with the SAS.
    */
   permissions?: DataLakeSASPermissions;
+}
+
+/**
+ * Options to specify encryption scope on a file system.
+ */
+export declare interface FileSystemEncryptionScope {
+  /** Optional.  Version 2021-02-12 and later.  Specifies the default encryption scope to set on the file system and use for all future writes. */
+  defaultEncryptionScope?: string;
 }
 
 /** *********************************************************/
