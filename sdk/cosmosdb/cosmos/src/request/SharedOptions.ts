@@ -3,6 +3,7 @@
 /// <reference lib="dom" />
 import { CosmosHeaders } from "../index";
 import { AbortSignal } from "node-abort-controller";
+import { OperationTracingOptions } from "@azure/core-tracing";
 
 /**
  * Options that can be specified for a requested issued to the Azure Cosmos DB servers.=
@@ -35,4 +36,17 @@ export interface SharedOptions {
    * @beta
    */
   maxIntegratedCacheStalenessInMs?: number;
+
+  /**
+   * **(Beta - There may be breaking changes in this property in future releases)**
+   * For requests where the {@link
+   * com.azure.cosmos.ConsistencyLevel} is {@link com.azure.cosmos.ConsistencyLevel#EVENTUAL}, responses from the
+
+   *
+   * <p>Default value is null</p>
+   *
+   * <p>. Anything will be ignored.</p>
+   * @beta
+   */
+  tracingOptions?: OperationTracingOptions;
 }

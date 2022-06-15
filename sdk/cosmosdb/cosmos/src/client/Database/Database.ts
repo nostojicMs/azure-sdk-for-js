@@ -10,6 +10,7 @@ import { DatabaseDefinition } from "./DatabaseDefinition";
 import { DatabaseResponse } from "./DatabaseResponse";
 import { OfferResponse, OfferDefinition, Offer } from "../Offer";
 import { Resource } from "../Resource";
+import { tracingClient } from "../../utils/tracing";
 
 /**
  * Operations for reading or deleting an existing database.
@@ -93,7 +94,10 @@ export class Database {
       resourceId: id,
       options,
     });
-    return new DatabaseResponse(response.result, response.headers, response.code, this);
+    return tracingClient.withSpan("Database.Read.Request.Diagnostics", options, (diagoptions)  => {
+     console.log(diagoptions);
+return new DatabaseResponse(response.result, response.headers, response.code, this);
+    });
   }
 
   /** Delete the given Database. */

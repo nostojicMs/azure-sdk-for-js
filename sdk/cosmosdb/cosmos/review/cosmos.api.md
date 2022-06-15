@@ -8,6 +8,7 @@
 /// <reference lib="esnext.asynciterable" />
 
 import { AbortSignal as AbortSignal_2 } from 'node-abort-controller';
+import { OperationTracingOptions } from '@azure/core-tracing';
 import { Pipeline } from '@azure/core-rest-pipeline';
 import { TokenCredential } from '@azure/core-auth';
 
@@ -405,6 +406,7 @@ export const Constants: {
     ThrottleRetryCount: string;
     ThrottleRetryWaitTimeInMs: string;
     CurrentVersion: string;
+    Namespace: string;
     SDKName: string;
     SDKVersion: string;
     Quota: {
@@ -1721,6 +1723,8 @@ export interface SharedOptions {
     // @beta
     maxIntegratedCacheStalenessInMs?: number;
     sessionToken?: string;
+    // @beta
+    tracingOptions?: OperationTracingOptions;
 }
 
 // @public (undocumented)

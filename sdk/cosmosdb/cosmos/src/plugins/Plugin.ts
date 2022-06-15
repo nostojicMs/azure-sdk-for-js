@@ -1,7 +1,9 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
+
 import { RequestContext } from "../request/RequestContext";
 import { Response } from "../request/Response";
+import { tracingClient } from "../utils/tracing";
 
 /**
  * Used to specify which type of events to execute this plug in on.
@@ -63,11 +65,14 @@ export type Next<T> = (context: RequestContext) => Promise<Response<T>>;
 export async function executePlugins(
   requestContext: RequestContext,
   next: Plugin<any>,
-  on: PluginOn
+  on: PluginOn,
 ): Promise<Response<any>> {
   if (!requestContext.plugins) {
-    return next(requestContext, undefined);
+    return tracingClient.withSpan("Plugin.executePlugins.Diagnostics", (requestContext), async(traceUpdatedOptions) => {
+    return next(traceUpdatedOptions, undefined);
+  });
   }
+
   let level = 0;
   const _: Next<any> = (inner: RequestContext): Promise<Response<any>> => {
     if (++level >= inner.plugins.length) {
